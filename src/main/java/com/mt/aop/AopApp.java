@@ -3,6 +3,7 @@ package com.mt.aop;
 import com.mt.aop.configuration.ProjectConfiguration;
 import com.mt.aop.dao.AccountDAO;
 import com.mt.aop.dao.MembershipDAO;
+import com.mt.aop.entities.Account;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -33,7 +34,12 @@ public class AopApp {
         ApplicationContext context = new AnnotationConfigApplicationContext(ProjectConfiguration.class);
 
         AccountDAO accountDAO = context.getBean("accountDAO", AccountDAO.class);
-        accountDAO.addUserAccount();
+        accountDAO.addAdminAccount();
+        accountDAO.isAccountValid();
+        Account account = new Account("Maziar", 30);
+        accountDAO.addDefaultAccount(account);
+
+        System.out.println("==========================================");
 
         MembershipDAO membershipDAO = context.getBean("membershipDAO", MembershipDAO.class);
         membershipDAO.addUserAccount();
